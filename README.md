@@ -67,7 +67,7 @@ A BitScam is a hash generate using Alberto's secret formula. You take 3 random n
 
 ### Tasks
 
-[demo](./docs/demo.png)
+![demo](./docs/demo.png)
 
 Alberto has outlined the following clear requirements to modernize and enhance the usability of the BitScam application:
 
