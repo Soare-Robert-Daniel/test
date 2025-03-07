@@ -18,12 +18,13 @@ You have complete freedom in how you approach the task. Feel free to install any
 ### Additional Notes
 
 - You are encouraged to use **AI tools** to assist in solving the task. However, you should be able to justify your choices and fully understand the decisions made in the application.
-- This project structure was initially built using **Bun** for ease of use and quick setup.
+- This project is built using **Bun** for ease of use and quick setup. (We recommend using the structure of the Single Page Application (SPA))
 - For UI design, you are free to choose any style that best suits this type of application. Our main focus is on the solutions you implement to enhance user interaction and experience. **Animations are great, but use them in moderation**.
-- The **database schema** can be modified as needed. If you make any changes, please attach a **comment explaining the reason** for the modification (e.g., improving ease of use, performance optimization, caching efficiency, etc.). Make sure that the function `seedDatabase` is up to date with your new schema.
+- The **database schema** can be modified as needed (and some task might need it). If you make any changes that is non-obvious, please attach a **comment explaining the reason** for the modification (e.g., improving ease of use, performance optimization, caching efficiency, etc.). Make sure that the function `seedDatabase` is up to date with your new schema.
+- You can use other SQL databases to connect. Database creation and schema definitions must be still done by code by changing the function `seedDatabase`.
 - When implementing new **API endpoints**, ensure **robust error handling** that properly communicates with the UI.
 - When designing the UI, **make it responsive**. Consider the experience of users on **mobile devices and tablets**.
-- Test with different scenarios using the `seedDatabase` function. Check if you can handle `1000` transactions. **By default the database is created in memory, you might need to change it if your machine can not handle it**.
+- Test with different scenarios using the `seedDatabase` function. Check if you can handle `1000` transactions. **By default the SQLite database is created in memory, you might need to change it if your machine can not handle it**.
 - Use the analysis provided by the `bun run lint` to improve your codebase with best practices.
 - You can share your experience in the [Feedback](./FEEDBACK.md) file. Examples:
   - What was the most challenging part?
@@ -66,13 +67,15 @@ A BitScam is a hash generate using Alberto's secret formula. You take 3 random n
 
 ### Tasks
 
+[demo](./docs/demo.png)
+
 Alberto has outlined the following clear requirements to modernize and enhance the usability of the BitScam application:
 
 #### User Registration (Sign-Up Page)
 
 - Develop a secure and intuitive sign-up page.
 - Allows new users to easily register.
-- Create a new account.
+- Add password support.
 
 #### User Authentication (Login Page)
 
@@ -102,7 +105,7 @@ Alberto has outlined the following clear requirements to modernize and enhance t
 
 #### Buy BitScams
 
-Create a page where all available BitScams are displayed (with pagination of 30 items per page). Each list item should display:
+Create a dashboard where all available BitScams are displayed (with pagination of 30 items per page). Each list item should display:
 
 - The BitScam hash
 - Its component numbers
@@ -112,7 +115,7 @@ Create a page where all available BitScams are displayed (with pagination of 30 
 
 When a user presses Buy, a new transaction will be registered and ownership of the coin will transfer.
 
-The page should also include a `Generate Coin` button. When pressed, the user will be prompted to enter an amount (this can be displayed via a modal, new page, or inline elements).
+The dashboard should also include a `Generate Coin` button. When pressed, the user will be prompted to enter an amount (this can be displayed via a modal, new page, or inline elements).
 
 To generate a BitScam, the system should find 3 random numbers whose combination must be unique (do not create a BitScam with component numbers that already exist in another coin). If no more unique BitScams can be generated, the `Generate Coin` button should be hidden.
 
