@@ -155,7 +155,7 @@ function seedBitscams(db: Database, count: number, clientCount: number): number[
       let bitCombinationKey: string;
       
       do {
-        const bitValues = generateDistinctRandomValues(3, 1, 500);
+        const bitValues = generateDistinctRandomValues(3, 1, 10);
         bit1 = bitValues[0];
         bit2 = bitValues[1];
         bit3 = bitValues[2];
