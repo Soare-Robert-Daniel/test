@@ -1,4 +1,4 @@
-import { serve, CryptoHasher } from "bun";
+import { serve } from "bun";
 import { Database } from "bun:sqlite";
 import { seedDatabase } from "./seed";
 import index from "./index.html";
@@ -9,19 +9,20 @@ const db = new Database(":memory:");
 
 // Seed the database with random data
 seedDatabase(db, {
-  clientCount: 30,     // Generate 30 random clients
-  bitscamCount: 2,    // Generate 80 random bitscams
-  transactionCount: 20, // Generate 150 random transactions
-  clearExisting: true  // Clear any existing data
+	clientCount: 30,
+	bitscamCount: 20,
+	transactionCount: 100,
+	clearExisting: true,
 });
 
 const server = serve({
-  routes: {
-    // Serve index.html for all unmatched routes.
-    "/*": index,
-    "/api/transactions": () => {
-      try {
-        const transactions = db.query(`
+	routes: {
+		// Serve index.html for all unmatched routes.
+		"/*": index,
+		"/api/transactions": () => {
+			try {
+				const transactions = db
+					.query(`
           SELECT 
             t.id, 
             t.bitscam_id, 
@@ -40,26 +41,27 @@ const server = serve({
           JOIN clients buyer ON t.buyer_id = buyer.id
           JOIN bitscams bs ON t.bitscam_id = bs.id
           ORDER BY t.transaction_date DESC
-        `).all();
-        
-        // Add computed BitScam to each transaction
-        const enhancedTransactions = transactions.map(transaction => ({
-          ...transaction,
-          computedBitScam: computeBitScam(
-            transaction.bit1, 
-            transaction.bit2, 
-            transaction.bit3
-          )
-        }));
-        
-        return Response.json(enhancedTransactions);
-      } catch (error) {
-        console.error("Error fetching transactions:", error);
-        return new Response("Error fetching transactions", { status: 500 });
-      }
-    },
-  },
-  development: process.env.NODE_ENV !== "production",
+        `)
+					.all();
+
+				// Add computed BitScam to each transaction
+				const enhancedTransactions = transactions.map((transaction) => ({
+					...transaction,
+					computedBitScam: computeBitScam(
+						transaction.bit1,
+						transaction.bit2,
+						transaction.bit3,
+					),
+				}));
+
+				return Response.json(enhancedTransactions);
+			} catch (error) {
+				console.error("Error fetching transactions:", error);
+				return new Response("Error fetching transactions", { status: 500 });
+			}
+		},
+	},
+	development: process.env.NODE_ENV !== "production",
 });
 
 console.log(`🚀 Server running at ${server.url}`);

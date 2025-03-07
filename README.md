@@ -18,11 +18,13 @@ You have complete freedom in how you approach the task. Feel free to install any
 ### Additional Notes
 
 - You are encouraged to use **AI tools** to assist in solving the task. However, you should be able to justify your choices and fully understand the decisions made in the application.
-- This project structure was initially built using **Bun** for ease of use and quick setup. However, if you prefer a different environment, we recommend using **Node.js** or **PHP** (Laravel, Headless WordPress, etc.).
+- This project structure was initially built using **Bun** for ease of use and quick setup.
 - For UI design, you are free to choose any style that best suits this type of application. Our main focus is on the solutions you implement to enhance user interaction and experience. **Animations are great, but use them in moderation**.
-- The **database schema** can be modified as needed. If you make any changes, please attach a **comment explaining the reason** for the modification (e.g., improving ease of use, performance optimization, caching efficiency, etc.).
+- The **database schema** can be modified as needed. If you make any changes, please attach a **comment explaining the reason** for the modification (e.g., improving ease of use, performance optimization, caching efficiency, etc.). Make sure that the function `seedDatabase` is up to date with your new schema.
 - When implementing new **API endpoints**, ensure **robust error handling** that properly communicates with the UI.
 - When designing the UI, **make it responsive**. Consider the experience of users on **mobile devices and tablets**.
+- Test with different scenarios using the `seedDatabase` function. Check if you can handle `1000` transactions. **By default the database is created in memory, you might need to change it if your machine can not handle it**.
+- Use the analysis provided by the `bun run lint` to improve your codebase with best practices.
 - You can share your experience in the [Feedback](./FEEDBACK.md) file. Examples:
   - What was the most challenging part?
   - Which aspects of the application did you enjoy implementing?
@@ -31,6 +33,8 @@ You have complete freedom in how you approach the task. Feel free to install any
 ### Submitting the solution
 
 After completing the task, please add screenshots of the application to the `screenshots` folder. You can also add videos.
+
+Make sure your code if formatted using `bun run format` (more about it down below).
 
 We recommend posting your solution on a Git platform (GitHub preferred) and sending us the repository link. If you want to add videos but the platform doesn't allow them due to size limits, you can use any video platform and include the links in the `FEEDBACK.md` file.
 
@@ -98,11 +102,19 @@ Alberto has outlined the following clear requirements to modernize and enhance t
 
 #### Buy BitScams
 
-Create a page where all the available BitScams are shown (with a pagination of 30 items per page). Each list item will display the BitScam hash, its components, its value and the current owner (if it exists) along with a Buy button (if the user does not already own it). When the user press Buy, a new transaction will be registered and the owner of the coin will change (the amount value does not matter, it just a vanity value).
+Create a page where all available BitScams are displayed (with pagination of 30 items per page). Each list item should display:
 
-In the page will be another button named `Generate Coin` where after pressing, the user will asked to introduce an amount (the display can be a modal, new page or inline elements).
+- The BitScam hash
+- Its component numbers
+- Its monetary value
+- The current owner (if one exists)
+- A Buy button (if the user doesn't already own it)
 
-To generate a BitScam, find 3 random numbers and their combination must be unique (do not insert a BitScam that has its components already present). If no more BitScam can be generated, the `Generate Coin` should be hidden.
+When a user presses Buy, a new transaction will be registered and ownership of the coin will transfer.
+
+The page should also include a `Generate Coin` button. When pressed, the user will be prompted to enter an amount (this can be displayed via a modal, new page, or inline elements).
+
+To generate a BitScam, the system should find 3 random numbers whose combination must be unique (do not create a BitScam with component numbers that already exist in another coin). If no more unique BitScams can be generated, the `Generate Coin` button should be hidden.
 
 ### Working with Bun
 
@@ -128,4 +140,16 @@ To run tests:
 
 ```bash
 bun test
+```
+
+To run format the code:
+
+```bash
+bun run format
+```
+
+To check for possible errors:
+
+```bash
+bun run lint
 ```
