@@ -18,6 +18,7 @@ You have complete freedom in how you approach the task. Feel free to install any
 ### Additional Notes
 
 - You are encouraged to use **AI tools** to assist in solving the task. However, you should be able to justify your choices and fully understand the decisions made in the application.
+- When trying to find optimizations, start with simple things like caching, proper indexing of database queries, and minimizing unnecessary API calls. For intensive compute operations leverage the asynchronous features of JavaScript - if you want something like a job queue you do not need to install a separate service for it.
 - This project is built using **Bun** for ease of use and quick setup. (We recommend using the structure of the Single Page Application (SPA))
 - For UI design, you are free to choose any style that best suits this type of application. Our main focus is on the solutions you implement to enhance user interaction and experience. **Animations are great, but use them in moderation**.
 - The **database schema** can be modified as needed (and some task might need it). If you make any changes that is non-obvious, please attach a **comment explaining the reason** for the modification (e.g., improving ease of use, performance optimization, caching efficiency, etc.). Make sure that the function `seedDatabase` is up to date with your new schema.
@@ -30,6 +31,18 @@ You have complete freedom in how you approach the task. Feel free to install any
   - What was the most challenging part?
   - Which aspects of the application did you enjoy implementing?
   - Any suggestions for improvement?
+
+### Resources
+
+You can consult those resources to help you solve the tasks:
+
+- https://bun.sh/docs/api/http
+- https://bun.sh/docs/api/sqlite
+- https://react.dev/reference/react
+- https://tailwindcss.com/docs/styling-with-utility-classes
+- https://restfulapi.net/resource-naming/
+- https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design
+- https://www.restapi.guru/optimizing-rest-api-performance
 
 ### Submitting the solution
 
@@ -61,63 +74,97 @@ Brimming with hopeful enthusiasm, Alberto dove headfirst into this world of "vib
 
 In that humbling moment, Alberto understood he couldn't do it alone. He urgently needed someone well-versed in modern technology—someone who could help him reclaim the future he once saw clearly.
 
-#### What is a BitSlow?
+#### What is a BitSlow coin?
 
-A BitSlow is a hash generate using Alberto's secret formula. You take 3 random numbers from range 1 to 10 and combine using a special combination then feed it to `md5` hash function. With this formula, Alberto can generated up to 1000 BitSlows.
+A BitSlow coin is represented by a hash generate using Alberto's secret formula. You take 3 random numbers from range 1 to 10 and combine using a special combination then feed it to `md5` hash function. With this formula, Alberto can generated up to 1000 BitSlows.
 
-### Tasks
+Example: the combination of `(6, 3, 2)` generate the hash `231e537a879422fa8e11ea360f6db10d`.
+
+## Tasks
 
 ![demo](./docs/demo.png)
 
 Alberto has outlined the following clear requirements to modernize and enhance the usability of the BitSlow application:
 
-#### User Registration (Sign-Up Page)
+### **1. User Registration (Sign-Up Page)**
 
-- Develop a secure and intuitive sign-up page.
-- Allows new users to easily register.
-- Add password support.
+**Goal:** Create a secure and intuitive **sign-up page** for new users.
 
-#### User Authentication (Login Page)
+**Features to Implement:**
 
-- Implement a secure and straightforward login page.
-- After login, the user will have access to a profile page where they can see:
-  - Total number of transactions associated with their account.
-  - Total amount of BitSlow currency they currently own.
-  - Total amount of BitSlow monetary value they currently own.
+- A simple registration form.
+- Secure password support (hashed & stored securely).
+- Basic validation for input fields.
 
-#### Transaction Dashboard Enhancements
+---
 
-- Create a user-friendly transaction dashboard.
-- Introduce pagination:
-  - Have a selector for 15, 30, 50 transactions per page.
-  - Easy navigation across multiple pages (e.g., pages 50, 49...2, 1).
-- Enable users to filter transactions by:
-  - **Date range** (specific start and end dates).
-  - **BitSlow currency value range**.
-  - **Buyer name**.
-  - **Seller name**.
+### **2. User Authentication (Login Page)**
 
-#### User Experience
+**Goal:** Implement a seamless login system with a user dashboard.
 
-- Improve the loading speed of the transaction dashboard.
-- Implement visual elements that notify users when an error occurs.
-- (Challenge) Live Refresh the transitions dashboard when a new transaction is created.
+**Features to Implement:**
 
-#### Buy BitSlows
+- Secure login authentication.
+- After logging in, the user should access a **profile page** displaying:
+  - **Total transactions** they have made.
+  - **Total BitSlow currency** they own.
+  - **Total monetary value** of their holdings.
 
-Create a dashboard where all available BitSlows are displayed (with pagination of 30 items per page). Each list item should display:
+---
 
-- The BitSlow hash
-- Its component numbers
-- Its monetary value
-- The current owner (if one exists)
-- A Buy button (if the user doesn't already own it)
+### **3. Transaction Dashboard Enhancements**
 
-When a user presses Buy, a new transaction will be registered and ownership of the coin will transfer.
+**Goal:** Improve the transaction dashboard for better usability and performance.
 
-The dashboard should also include a `Generate Coin` button. When pressed, the user will be prompted to enter an amount (this can be displayed via a modal, new page, or inline elements).
+**Features to Implement:**
 
-To generate a BitSlow, the system should find 3 random numbers whose combination must be unique (do not create a BitSlow with component numbers that already exist in another coin). If no more unique BitSlows can be generated, the `Generate Coin` button should be hidden.
+- **Pagination:** Allow users to view **15, 30, or 50 transactions per page**.
+- **Smooth navigation:** Users should easily browse pages (**1, 2, …, 50**).
+- **Filtering Options:**
+  - By **Date Range** (Start & End Dates).
+  - By **BitSlow Value Range**.
+  - By **Buyer Name**.
+  - By **Seller Name**.
+
+Bonus Challenge: Implement **real-time updates**—new transactions should appear **without requiring a manual refresh**.
+
+---
+
+### **4. Performance & User Experience Enhancements**
+
+**Goal:** Optimize loading speed and improve usability.
+
+**Features to Implement:**
+
+- Minimize page load time.
+- Provide **clear error messages** when issues occur.
+- Implement **visual indicators** (e.g., loading spinners, success/error messages).
+
+---
+
+### **5. Buying BitSlow Coins**
+
+**Goal:** Build a feature-rich **marketplace** for users to buy and generate BitSlows.
+
+**Features to Implement:**
+
+- **BitSlow Marketplace Dashboard:**
+  - Displays all **available BitSlows** (paginated, 30 per page).
+  - Shows each coin’s details:
+    - **Hash** (Unique ID).
+    - **Component Numbers** (3 numbers used in the hash).
+    - **Monetary Value**.
+    - **Current Owner (if any).**
+  - Includes a **"Buy" button** (only for unowned BitSlows).
+- **Buying Process:**
+  - When a user **buys** a BitSlow, a new **transaction is recorded**, and **ownership is transferred**. (No need to check if the buyer can afford it, but change the owner with the new transaction).
+- **Generating New BitSlows:**
+  - Users can **generate a new BitSlow** by clicking **"Generate Coin"**.
+  - They must enter an amount. (Think what component is the best for representing this: modal, new page, etc.)
+  - The system should **find 3 unique numbers** that haven't been used in an existing BitSlow.
+  - If no unique combinations remain, the **"Generate Coin"** button should disappear.
+
+Bonus Challenge: For each coin, offer the possibility to display the previous owners of the coin based on the transaction history. (Tip: It can be a simple button that displays a popup with the owner list).
 
 ### Working with Bun
 
