@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 // Define the Transaction interface based on the API response
 interface Transaction {
 	id: number;
-	bitscam_id: number;
+	coin_id: number;
 	amount: number;
 	transaction_date: string;
 	seller_id: number | null;
@@ -15,7 +15,7 @@ interface Transaction {
 	bit2: number;
 	bit3: number;
 	value: number;
-	computedBitScam: string;
+	computedBitSlow: string;
 }
 
 const ENDPOINT_URL = "http://localhost:3000/"; // NOTE: change this based on your environment.
@@ -105,7 +105,7 @@ export function App() {
 	return (
 		<div className="max-w-7xl mx-auto p-4">
 			<h1 className="text-3xl font-bold mb-8 text-gray-800">
-				BitScam Transactions
+				BitSlow Transactions
 			</h1>
 
 			{transactions.length === 0 ? (
@@ -116,7 +116,7 @@ export function App() {
 						<thead>
 							<tr className="bg-gray-800 text-white">
 								<th className="p-4 text-left">ID</th>
-								<th className="p-4 text-left">BitScam</th>
+								<th className="p-4 text-left">BitSlow</th>
 								<th className="p-4 text-left">Seller</th>
 								<th className="p-4 text-left">Buyer</th>
 								<th className="p-4 text-right">Amount</th>
@@ -133,7 +133,7 @@ export function App() {
 									<td className="p-4">
 										<div>
 											<div className="font-medium text-gray-800">
-												{transaction.computedBitScam}
+												{transaction.computedBitSlow}
 											</div>
 											<div className="text-xs text-gray-500 mt-1">
 												Bits: {transaction.bit1}, {transaction.bit2},{" "}

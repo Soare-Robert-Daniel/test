@@ -43,15 +43,15 @@ Good luck! 🚀
 
 ## Story (Introduction)
 
-Alberto Rodrigo was a proud inventor of BitScam, a quirky digital currency favored by an exclusive club in the vibrant heart of Barcelona. Though his app was straightforward, Alberto's users were often left frustrated by their experience.
+Alberto Rodrigo was a proud inventor of BitSlow, a quirky digital currency favored by an exclusive club in the vibrant heart of Barcelona. Though his app was straightforward, Alberto's users were often left frustrated by their experience.
 
 They frequently complained about unbearably long loading times, excessive memory usage that repeatedly crashed their browsers, a glaring absence of transaction filters, and a perplexing process of adding transactions—one that involved personally emailing Alberto each time.
 
 Despite being well aware of these shortcomings, Alberto found himself content with how things were running, especially given the remarkable profits the app generated.
 
-One sunny afternoon, while indulging his success at the Porsche store, Alberto's phone buzzed frantically with a news alert. His heart skipped a beat as he read that BitScam had caught the eye of international media. Almost immediately, a wave of enthusiastic emails from potential customers flooded his inbox. Filled with confidence and excitement, Alberto even considered heading straight to the Ferrari dealership.
+One sunny afternoon, while indulging his success at the Porsche store, Alberto's phone buzzed frantically with a news alert. His heart skipped a beat as he read that BitSlow had caught the eye of international media. Almost immediately, a wave of enthusiastic emails from potential customers flooded his inbox. Filled with confidence and excitement, Alberto even considered heading straight to the Ferrari dealership.
 
-However, his joy was abruptly shattered by another alert. His hands began to tremble, sweat streaming down his forehead as he read the alarming news: a group of talented dropouts from Harvard, Stanford, and MIT had secured a staggering $50 million from heavyweight investors like gCombinator and s9t. Their ambitious mission? Transform BitScam into a global currency supported by the largest trading platform ever built.
+However, his joy was abruptly shattered by another alert. His hands began to tremble, sweat streaming down his forehead as he read the alarming news: a group of talented dropouts from Harvard, Stanford, and MIT had secured a staggering $50 million from heavyweight investors like gCombinator and s9t. Their ambitious mission? Transform BitSlow into a global currency supported by the largest trading platform ever built.
 
 Panic surged through Alberto. The sudden realization that his cherished business could become obsolete overnight struck him hard. Determined, he rushed home, feverishly attempting to upgrade his outdated app, desperately hoping his loyal users wouldn't desert him immediately.
 
@@ -61,15 +61,15 @@ Brimming with hopeful enthusiasm, Alberto dove headfirst into this world of "vib
 
 In that humbling moment, Alberto understood he couldn't do it alone. He urgently needed someone well-versed in modern technology—someone who could help him reclaim the future he once saw clearly.
 
-#### What is a BitScam?
+#### What is a BitSlow?
 
-A BitScam is a hash generate using Alberto's secret formula. You take 3 random numbers from range 1 to 10 and combine using a special combination then feed it to `md5` hash function. With this formula, Alberto can generated up to 1000 BitScams.
+A BitSlow is a hash generate using Alberto's secret formula. You take 3 random numbers from range 1 to 10 and combine using a special combination then feed it to `md5` hash function. With this formula, Alberto can generated up to 1000 BitSlows.
 
 ### Tasks
 
 ![demo](./docs/demo.png)
 
-Alberto has outlined the following clear requirements to modernize and enhance the usability of the BitScam application:
+Alberto has outlined the following clear requirements to modernize and enhance the usability of the BitSlow application:
 
 #### User Registration (Sign-Up Page)
 
@@ -82,8 +82,8 @@ Alberto has outlined the following clear requirements to modernize and enhance t
 - Implement a secure and straightforward login page.
 - After login, the user will have access to a profile page where they can see:
   - Total number of transactions associated with their account.
-  - Total amount of BitScam currency they currently own.
-  - Total amount of BitScam monetary value they currently own.
+  - Total amount of BitSlow currency they currently own.
+  - Total amount of BitSlow monetary value they currently own.
 
 #### Transaction Dashboard Enhancements
 
@@ -93,7 +93,7 @@ Alberto has outlined the following clear requirements to modernize and enhance t
   - Easy navigation across multiple pages (e.g., pages 50, 49...2, 1).
 - Enable users to filter transactions by:
   - **Date range** (specific start and end dates).
-  - **BitScam currency value range**.
+  - **BitSlow currency value range**.
   - **Buyer name**.
   - **Seller name**.
 
@@ -103,11 +103,11 @@ Alberto has outlined the following clear requirements to modernize and enhance t
 - Implement visual elements that notify users when an error occurs.
 - (Challenge) Live Refresh the transitions dashboard when a new transaction is created.
 
-#### Buy BitScams
+#### Buy BitSlows
 
-Create a dashboard where all available BitScams are displayed (with pagination of 30 items per page). Each list item should display:
+Create a dashboard where all available BitSlows are displayed (with pagination of 30 items per page). Each list item should display:
 
-- The BitScam hash
+- The BitSlow hash
 - Its component numbers
 - Its monetary value
 - The current owner (if one exists)
@@ -117,7 +117,7 @@ When a user presses Buy, a new transaction will be registered and ownership of t
 
 The dashboard should also include a `Generate Coin` button. When pressed, the user will be prompted to enter an amount (this can be displayed via a modal, new page, or inline elements).
 
-To generate a BitScam, the system should find 3 random numbers whose combination must be unique (do not create a BitScam with component numbers that already exist in another coin). If no more unique BitScams can be generated, the `Generate Coin` button should be hidden.
+To generate a BitSlow, the system should find 3 random numbers whose combination must be unique (do not create a BitSlow with component numbers that already exist in another coin). If no more unique BitSlows can be generated, the `Generate Coin` button should be hidden.
 
 ### Working with Bun
 

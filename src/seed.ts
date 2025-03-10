@@ -10,14 +10,14 @@ export function seedDatabase(
 	db: Database,
 	options: {
 		clientCount?: number;
-		bitscamCount?: number;
+		bitSlowCount?: number;
 		transactionCount?: number;
 		clearExisting?: boolean;
 	} = {},
 ) {
 	const {
 		clientCount = 20,
-		bitscamCount = 50,
+		bitSlowCount = 50,
 		transactionCount = 100,
 		clearExisting = false,
 	} = options;
@@ -28,7 +28,7 @@ export function seedDatabase(
 		console.log("🗑️ Clearing existing data...");
 		db.exec(`
       DROP TABLE IF EXISTS transactions;
-      DROP TABLE IF EXISTS bitscams;
+      DROP TABLE IF EXISTS coins;
       DROP TABLE IF EXISTS clients;
     `);
 	}
@@ -38,17 +38,17 @@ export function seedDatabase(
 
 	// Generate random data
 	const clients = seedClients(db, clientCount);
-	const bitscams = seedBitscams(db, bitscamCount, clients.length);
-	seedTransactions(db, transactionCount, bitscams.length, clients.length);
+	const coins = seedCoins(db, bitSlowCount, clients.length);
+	seedTransactions(db, transactionCount, coins.length, clients.length);
 
 	console.log("✅ Database seeding complete!");
 	console.log(
-		`📊 Generated ${clientCount} clients, ${bitscamCount} bitscams, and ${transactionCount} transactions.`,
+		`📊 Generated ${clientCount} clients, ${bitSlowCount} BitSlows, and ${transactionCount} transactions.`,
 	);
 
 	return {
 		clients,
-		bitscams,
+		coins,
 		transactionCount,
 	};
 }
@@ -70,9 +70,9 @@ function initializeSchema(db: Database) {
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
-    -- Create bitscams table
-    CREATE TABLE IF NOT EXISTS bitscams (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+    -- Create coins table
+    CREATE TABLE IF NOT EXISTS coins (
+      coin_id INTEGER PRIMARY KEY AUTOINCREMENT,
       client_id INTEGER,
       bit1 INTEGER NOT NULL,
       bit2 INTEGER NOT NULL,
@@ -85,12 +85,12 @@ function initializeSchema(db: Database) {
     -- Create transactions table
     CREATE TABLE IF NOT EXISTS transactions (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      bitscam_id INTEGER NOT NULL,
+      coin_id INTEGER NOT NULL,
       seller_id INTEGER,
       buyer_id INTEGER NOT NULL,
       amount REAL NOT NULL,
       transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (bitscam_id) REFERENCES bitscams (id),
+      FOREIGN KEY (coin_id) REFERENCES coins (coin_id),
       FOREIGN KEY (seller_id) REFERENCES clients (id),
       FOREIGN KEY (buyer_id) REFERENCES clients (id)
     );
@@ -128,22 +128,22 @@ function seedClients(db: Database, count: number): number[] {
 }
 
 /**
- * Generate random bitscams
+ * Generate random BitSlows
  */
-function seedBitscams(
+function seedCoins(
 	db: Database,
 	count: number,
 	clientCount: number,
 ): number[] {
-	console.log(`💰 Generating ${count} random bitscams...`);
+	console.log(`💰 Generating ${count} random BitSlows...`);
 
-	const bitscamIds: number[] = [];
-	const insertBitscam = db.prepare(`
-    INSERT INTO bitscams (client_id, bit1, bit2, bit3, value) 
+	const coinIds: number[] = [];
+	const insertCoin = db.prepare(`
+    INSERT INTO coins (client_id, bit1, bit2, bit3, value) 
     VALUES (?, ?, ?, ?, ?)
   `);
 
-	// Track used values to ensure each bitscam has a unique value
+	// Track used values to ensure each BitSlow has a unique value
 	const usedValues = new Set<number>();
 
 	// Track used bit combinations to ensure each (bit1, bit2, bit3) is unique
@@ -151,7 +151,7 @@ function seedBitscams(
 
 	db.transaction(() => {
 		for (let i = 0; i < count; i++) {
-			// About 20% of bitscams don't have an owner initially
+			// About 20% of BitSlows don't have an owner initially
 			const clientId =
 				Math.random() > 0.2
 					? Math.floor(Math.random() * clientCount) + 1
@@ -183,12 +183,12 @@ function seedBitscams(
 			// Add to used values set
 			usedValues.add(value);
 
-			const info = insertBitscam.run(clientId, bit1, bit2, bit3, value);
-			bitscamIds.push(Number(info.lastInsertId));
+			const info = insertCoin.run(clientId, bit1, bit2, bit3, value);
+			coinIds.push(Number(info.lastInsertId));
 		}
 	})();
 
-	return bitscamIds;
+	return coinIds;
 }
 
 /**
@@ -223,18 +223,18 @@ function generateDistinctRandomValues(
 function seedTransactions(
 	db: Database,
 	count: number,
-	bitscamCount: number,
+	coinCount: number,
 	clientCount: number,
 ) {
 	console.log(`💸 Generating ${count} random transactions...`);
 
 	const insertTransaction = db.prepare(`
-    INSERT INTO transactions (bitscam_id, seller_id, buyer_id, amount, transaction_date) 
+    INSERT INTO transactions (coin_id, seller_id, buyer_id, amount, transaction_date) 
     VALUES (?, ?, ?, ?, ?)
   `);
 
-	// Track which bitscams have been sold (for realistic chain of ownership)
-	const bitscamOwners: Record<number, number | null> = {};
+	// Track which BitSlows have been sold (for realistic chain of ownership)
+	const coinOwners: Record<number, number | null> = {};
 
 	// Keep track of the latest transaction date
 	let latestTransactionDate = new Date();
@@ -242,11 +242,11 @@ function seedTransactions(
 
 	db.transaction(() => {
 		for (let i = 0; i < count; i++) {
-			// Select a random bitscam
-			const bitscamId = Math.floor(Math.random() * bitscamCount) + 1;
+			// Select a random BitSlow
+			const coinId = Math.floor(Math.random() * coinCount) + 1;
 
 			// Get current owner (seller) or null if it's a new issuance
-			const sellerId = bitscamOwners[bitscamId] || null;
+			const sellerId = coinOwners[coinId] || null;
 
 			// Select random buyer (different from seller)
 			let buyerId: number;
@@ -254,13 +254,13 @@ function seedTransactions(
 				buyerId = Math.floor(Math.random() * clientCount) + 1;
 			} while (buyerId === sellerId);
 
-			// Get bitscam value
-			const bitscamValue =
-				db.query("SELECT value FROM bitscams WHERE id = ?").get(bitscamId)
+			// Get BitSlow value
+			const coinValue =
+				db.query("SELECT value FROM coins WHERE coin_id = ?").get(coinId)
 					?.value || 0;
 
-			// Use exact bitscam value as the transaction amount
-			const amount = bitscamValue;
+			// Use exact BitSlow value as the transaction amount
+			const amount = coinValue;
 
 			// Advance transaction date by a small random increment (1 minute to 2 days)
 			const minutesToAdd = Math.floor(Math.random() * 2880) + 1; // 1 minute to 2 days
@@ -270,7 +270,7 @@ function seedTransactions(
 
 			// Insert the transaction
 			insertTransaction.run(
-				bitscamId,
+				coinId,
 				sellerId,
 				buyerId,
 				amount.toFixed(2),
@@ -278,7 +278,7 @@ function seedTransactions(
 			);
 
 			// Update ownership
-			bitscamOwners[bitscamId] = buyerId;
+			coinOwners[coinId] = buyerId;
 		}
 	})();
 }

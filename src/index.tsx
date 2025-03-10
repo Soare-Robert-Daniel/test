@@ -2,7 +2,7 @@ import { serve } from "bun";
 import { Database } from "bun:sqlite";
 import { seedDatabase } from "./seed";
 import index from "./index.html";
-import { computeBitScam } from "./bitscam";
+import { computeBitSlow } from "./bitslow";
 
 // Initialize the database
 const db = new Database(":memory:");
@@ -10,8 +10,8 @@ const db = new Database(":memory:");
 // Seed the database with random data
 seedDatabase(db, {
 	clientCount: 30,
-	bitscamCount: 20,
-	transactionCount: 100,
+	bitSlowCount: 20,
+	transactionCount: 50,
 	clearExisting: true,
 });
 
@@ -25,29 +25,29 @@ const server = serve({
 					.query(`
           SELECT 
             t.id, 
-            t.bitscam_id, 
+            t.coin_id, 
             t.amount, 
             t.transaction_date,
             seller.id as seller_id,
             seller.name as seller_name,
             buyer.id as buyer_id,
             buyer.name as buyer_name,
-            bs.bit1,
-            bs.bit2,
-            bs.bit3,
-            bs.value
+            c.bit1,
+            c.bit2,
+            c.bit3,
+            c.value
           FROM transactions t
           LEFT JOIN clients seller ON t.seller_id = seller.id
           JOIN clients buyer ON t.buyer_id = buyer.id
-          JOIN bitscams bs ON t.bitscam_id = bs.id
+          JOIN coins c ON t.coin_id = c.coin_id
           ORDER BY t.transaction_date DESC
         `)
 					.all();
 
-				// Add computed BitScam to each transaction
+				// Add computed BitSlow to each transaction
 				const enhancedTransactions = transactions.map((transaction) => ({
 					...transaction,
-					computedBitScam: computeBitScam(
+					computedBitSlow: computeBitSlow(
 						transaction.bit1,
 						transaction.bit2,
 						transaction.bit3,
