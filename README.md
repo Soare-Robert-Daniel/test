@@ -44,11 +44,11 @@ You can consult those resources to help you solve the tasks:
 - https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design
 - https://www.restapi.guru/optimizing-rest-api-performance
 
-### Submitting the solution
+## Submitting the solution
 
 After completing the task, please add screenshots of the application to the `screenshots` folder. You can also add videos.
 
-Make sure your code if formatted using `bun run format` (more about it down below).
+Make sure your code is **formatted** using `bun run format` (more about it down below).
 
 We recommend posting your solution on a Git platform (GitHub preferred) and sending us the repository link. If you want to add videos but the platform doesn't allow them due to size limits, you can use any video platform and include the links in the `FEEDBACK.md` file.
 
