@@ -13,10 +13,7 @@ The following criteria will be assessed:
 
 ## Implementation Guidelines
 
-You have complete freedom in how you approach the task. Feel free to install any libraries that you find useful.
-
-### Additional Notes
-
+- Feel free to install any libraries that you find useful to solve the tasks.
 - You are encouraged to use **AI tools** to assist in solving the task. However, you should be able to justify your choices and fully understand the decisions made in the application.
 - When trying to find optimizations, start with simple things like caching, proper indexing of database queries, and minimizing unnecessary API calls. For intensive compute operations leverage the asynchronous features of JavaScript - if you want something like a job queue you do not need to install a separate service for it.
 - This project is built using **Bun** for ease of use and quick setup. (We recommend using the structure of the Single Page Application (SPA))
