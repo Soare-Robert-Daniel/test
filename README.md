@@ -24,10 +24,6 @@ The following criteria will be assessed:
 - When designing the UI, **make it responsive**. Consider the experience of users on **mobile devices and tablets**.
 - Test with different scenarios using the `seedDatabase` function. Check if you can handle `1000` transactions. **By default the SQLite database is created in memory, you might need to change it if your machine can not handle it**.
 - Use the analysis provided by the `bun run lint` to improve your codebase with best practices.
-- You can share your experience in the [Feedback](./FEEDBACK.md) file. Examples:
-  - What was the most challenging part?
-  - Which aspects of the application did you enjoy implementing?
-  - Any suggestions for improvement?
 
 ### Resources
 
@@ -43,11 +39,19 @@ You can consult those resources to help you solve the tasks:
 
 ## Submitting the solution
 
-After completing the task, please add screenshots of the application to the `screenshots` folder. You can also add videos.
+You can share your experience in the [Feedback](./FEEDBACK.md) file. Examples:
+
+- What was the most challenging part?
+- Which aspects of the application did you enjoy implementing?
+- Any suggestions for improvement?
+
+Please add screenshots of the application to the `screenshots` folder. You can also add videos.
 
 Make sure your code is **formatted** using `bun run format` (more about it down below).
 
 We recommend posting your solution on a Git platform (GitHub preferred) and sending us the repository link. If you want to add videos but the platform doesn't allow them due to size limits, you can use any video platform and include the links in the `FEEDBACK.md` file.
+
+The screenshots should show the completion of all the task related to UI. Videos or GIFs should show the user experience and the performance (e.g.: page loading).
 
 Good luck! 🚀
 
