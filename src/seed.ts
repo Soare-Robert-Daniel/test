@@ -130,11 +130,7 @@ function seedClients(db: Database, count: number): number[] {
 /**
  * Generate random BitSlows
  */
-function seedCoins(
-	db: Database,
-	count: number,
-	clientCount: number,
-): number[] {
+function seedCoins(db: Database, count: number, clientCount: number): number[] {
 	console.log(`💰 Generating ${count} random BitSlows...`);
 
 	const coinIds: number[] = [];
