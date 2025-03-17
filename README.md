@@ -127,7 +127,7 @@ Alberto has outlined the following clear requirements to modernize and enhance t
   - By **Buyer Name**.
   - By **Seller Name**.
 
-Bonus Challenge: Implement **real-time updates**—new transactions should appear **without requiring a manual refresh**.
+Bonus Challenge: New transactions should appear without requiring a manual refresh.
 
 ---
 
