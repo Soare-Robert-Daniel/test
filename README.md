@@ -156,7 +156,7 @@ Bonus Challenge: New transactions should appear without requiring a manual refre
     - **Component Numbers** (3 numbers used in the hash).
     - **Monetary Value**.
     - **Current Owner (if any).**
-  - Includes a **"Buy" button** (only for unowned BitSlows).
+  - Includes a **"Buy" button** (for the coins that do not belong to the current logged user).
 - **Buying Process:**
   - When a user **buys** a BitSlow, a new **transaction is recorded**, and **ownership is transferred**. (No need to check if the buyer can afford it, but change the owner with the new transaction).
 - **Generating New BitSlows:**
